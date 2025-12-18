@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Shashirekha Yellenki — Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Single-page portfolio of Shashirekha Yellenki — Front End Developer with enterprise integration background." />
+  <style>
+    /* ===== REFINED COLOR PALETTE ===== */
+    :root {
+      --bg: #f8fafb;
+      --bg-alt: #ffffff;
+      --ink: #1a1a1a;
+      --muted: #5e6d75;
+      --teal: #008080; /* Primary Teal */
+      --teal-light: #e0f2f1;
+      --orange: #ff9f43; /* Light Orange Accent */
+      --orange-soft: #fff4e6;
+      --border: #e2e8f0;
+      --grid-max: 1000px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+
+    /* ===== LAYOUT ===== */
+    .page {
+      max-width: var(--grid-max);
+      margin: 0 auto;
+      padding: 40px 24px 72px;
+    }
+
+    .stack-lg > * + * { margin-top: 100px; }
+    .stack-md > * + * { margin-top: 48px; }
+
+    /* ===== NAVIGATION ===== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: var(--grid-max);
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-left {
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: var(--teal);
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 24px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .nav-link:hover { color: var(--orange); }
+
+    /* ===== HERO SECTION (left-aligned) ===== */
+    .hero {
+      text-align: left;
+      max-width: var(--grid-max);
+      margin: 60px 0 0;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: var(--teal-light);
+      color: var(--teal);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: clamp(34px, 6vw, 52px);
+      line-height: 1.1;
+      margin-bottom: 24px;
+      font-weight: 800;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      max-width: 800px;
+    }
+
+    .hero-subtitle strong { color: var(--ink); }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      font-size: 12px;
+      margin-bottom: 32px;
+      color: var(--muted);
+    }
+
+    .hero-meta-block-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--teal);
+    }
+
+    .hero-meta-block-value {
+      font-size: 13px;
+      margin-top: 4px;
+      color: var(--ink);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: white;
+      box-shadow: 0 4px 14px rgba(255, 159, 67, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: #e67e22;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--teal);
+      background: transparent;
+      color: var(--teal);
+    }
+
+    .btn-outline:hover {
+      background: var(--teal-light);
+    }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: var(--teal);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* ===== PROJECTS GRID ===== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .project-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transform: translateY(-5px);
+    }
+
+    .project-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .project-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .project-desc {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .project-tag-pill {
+      font-size: 10px;
+      background: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* ===== EXPERIENCE & EDUCATION (Modern List) ===== */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 800px) {
+      .two-col { grid-template-columns: 1fr; }
+      .hero-cta { flex-wrap: wrap; }
+      .hero-meta { flex-direction: column; }
+    }
+
+    .item-block {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .item-title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .item-sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 4px 0;
+    }
+
+    .item-meta {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      text-transform: uppercase;
+    }
+
+    /* ===== CONTACT STRIP ===== */
+    .contact-strip {
+      background: var(--teal);
+      color: white;
+      padding: 48px;
+      border-radius: 24px;
+      text-align: center;
+    }
+
+    .contact-strip h2 { margin-bottom: 16px; }
+
+    .contact-strip p {
+      font-size: 14px;
+      max-width: 32rem;
+      margin: 0 auto;
+    }
+
+    .contact-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .contact-pill {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .contact-pill:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 56px;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">SHASHIREKHA YELLENKI</div>
+      <nav class="nav-right">
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page stack-lg">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <span class="hero-label"> * AI * Front End * Integration *  </span>
+      <h1 class="hero-title">Designing calm, clear web experiences.</h1>
+      <p class="hero-subtitle">
+        I am a Front End Developer with an enterprise integration background,
+        comfortable moving between the browser, APIs, and data-intensive systems. Recently, I completed a
+        <strong>360‑hour Front End Developer program</strong> and a <strong>Generative AI Mastermind</strong>, and
+        share projects on YouTube as <strong>@shashi2718</strong>.
+      </p>
+
+      <div class="hero-meta">
+        <div>
+          <div class="hero-meta-block-label">Based in</div>
+          <div class="hero-meta-block-value">Arizona, USA</div>
+        </div>
+        <div>
+          <div class="hero-meta-block-label">Available for</div>
+          <div class="hero-meta-block-value">Front End roles · Internships · Remote-friendly</div>
+        </div>
+        <div>
+          <div class="hero-meta-block-label">Previously</div>
+          <div class="hero-meta-block-value">Accenture · TIBCO PSG · Infoblox</div>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View web projects</a>
+        <a href="#contact" class="btn btn-outline">Get in touch</a>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="stack-md">
+      <header>
+        <h2 class="section-title">Projects · YouTube</h2>
+        <p class="section-subtitle">
+         Each card links directly to a short walkthrough on the YouTube channel <strong>@shashi2718</strong>.
+        </p>
+      </header>
+
+      <div class="projects-grid">
+        <!-- 1 -->
+        <a class="project-card" href="https://youtu.be/arwJ0kXMD3g?si=NxqlvdBR9MSGasrQ" target="_blank" rel="noreferrer">
+          <div class="project-label-row">
+            <span>Latest</span>
+            <span>Watch on YouTube</span>
+          </div>
+          <h3 class="project-title">Project 1 · Modern Web Interface</h3>
+          <p class="project-desc">
+            A recent front end build focused on clean layout, responsive structure, and practical component usage for everyday interfaces.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag-pill">HTML</span>
+            <span class="project-tag-pill">CSS</span>
+            <span class="project-tag-pill">Layout</span>
+          </div>
+        </a>
+
+        <!-- 2 -->
+        <a class="project-card" href="https://youtu.be/qwfQgf8tBCc?si=-xiSV2GHyItgbXg5" target="_blank" rel="noreferrer">
+          <div class="project-label-row">
+            <span>Project 2</span>
+            <span>Watch on YouTube</span>
+          </div>
+          <h3 class="project-title">Project 2 · Component-based Page</h3>
+          <p class="project-desc">
+            Demonstrates how simple reusable components can structure a full page, improving clarity and maintainability for real-world UI work.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag-pill">Components</span>
+            <span class="project-tag-pill">Responsive</span>
+          </div>
+        </a>
+
+        <!-- 3 -->
+        <a class="project-card" href="https://youtu.be/7asrUuRwS3Y?si=9_knh65Cg9DxfTrr" target="_blank" rel="noreferrer">
+          <div class="project-label-row">
+            <span>Project 3</span>
+            <span>Watch on YouTube</span>
+          </div>
+          <h3 class="project-title">Project 3 · Interaction & Motion</h3>
+          <p class="project-desc">
+            A small interface exploring hover states, transitions, and subtle motion to keep interactions clear but engaging.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag-pill">JavaScript</span>
+            <span class="project-tag-pill">Animations</span>
+          </div>
+        </a>
+
+        <!-- 4 -->
+        <a class="project-card" href="https://youtu.be/WB0-2yL3q8c?si=KopINZHLvtgleGaH" target="_blank" rel="noreferrer">
+          <div class="project-label-row">
+            <span>Project 4</span>
+            <span>Watch on YouTube</span>
+          </div>
+          <h3 class="project-title">Project 4 · Application-style Layout</h3>
+          <p class="project-desc">
+            A more structured layout resembling a simple web application, with attention to hierarchy and readable spacing.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag-pill">Layout</span>
+            <span class="project-tag-pill">UI patterns</span>
+          </div>
+        </a>
+
+        <!-- 5 -->
+        <a class="project-card" href="https://youtu.be/WB0-2yL3q8c?si=KopINZHLvtgleGaH" target="_blank" rel="noreferrer">
+          <div class="project-label-row">
+            <span>Project 5</span>
+            <span>Watch on YouTube</span>
+          </div>
+          <h3 class="project-title">Project 5 · Variant Exploration</h3>
+          <p class="project-desc">
+            A variation on the app-style layout, iterating on spacing and typography decisions from the previous project.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag-pill">Iteration</span>
+            <span class="project-tag-pill">Typographic scale</span>
+          </div>
+        </a>
+
+        <!-- 6 -->
+        <a class="project-card" href="https://youtu.be/4o8uwxwI3-4?si=CzDrEBGENf0beqog" target="_blank" rel="noreferrer">
+          <div class="project-label-row">
+            <span>Project 6</span>
+            <span>Watch on YouTube</span>
+          </div>
+          <h3 class="project-title">Project 6 · Themed Landing Section</h3>
+          <p class="project-desc">
+            A themed hero or landing section that balances strong typography with a simple grid for content blocks.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag-pill">Landing page</span>
+            <span class="project-tag-pill">Grid</span>
+          </div>
+        </a>
+
+        <!-- 7 -->
+        <a class="project-card" href="https://youtu.be/4WVN_UP7buc?si=uDL7zZvdhggZfvE-" target="_blank" rel="noreferrer">
+          <div class="project-label-row">
+            <span>Project 7</span>
+            <span>Watch on YouTube</span>
+          </div>
+          <h3 class="project-title">Project 7 · Simple Utility UI</h3>
+          <p class="project-desc">
+            A small interface that demonstrates how utility-style layouts can keep tools simple and to the point.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag-pill">Utility UI</span>
+            <span class="project-tag-pill">Practical</span>
+          </div>
+        </a>
+
+        <!-- 8 -->
+        <a class="project-card" href="https://youtu.be/wMrUxKAfvGk?si=VJmmaq4QzrZ7H2-a" target="_blank" rel="noreferrer">
+          <div class="project-label-row">
+            <span>Project 8</span>
+            <span>Watch on YouTube</span>
+          </div>
+          <h3 class="project-title">Project 8 · Layout Study</h3>
+          <p class="project-desc">
+            A layout experiment focused on balancing columns, margins, and vertical rhythm for long-scroll pages.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag-pill">Layout study</span>
+            <span class="project-tag-pill">Spacing</span>
+          </div>
+        </a>
+
+        <!-- 9 -->
+        <a class="project-card" href="https://youtu.be/Tdd6iW-qKSU?si=IrE7E-BvTf-3q8-w" target="_blank" rel="noreferrer">
+          <div class="project-label-row">
+            <span>Project 9</span>
+            <span>Watch on YouTube</span>
+          </div>
+          <h3 class="project-title">Project 9 · Micro-interaction Demo</h3>
+          <p class="project-desc">
+            A demo illustrating how small interactions can guide users without distracting from the main task.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag-pill">Micro-interactions</span>
+            <span class="project-tag-pill">UX details</span>
+          </div>
+        </a>
+
+        <!-- 10 -->
+        <a class="project-card" href="https://youtu.be/i7BFxQpjvp8?si=-YAtYY24AhOwyTbi" target="_blank" rel="noreferrer">
+          <div class="project-label-row">
+            <span>Project 10</span>
+            <span>Watch on YouTube</span>
+          </div>
+          <h3 class="project-title">Project 10 · Early Front End Build</h3>
+          <p class="project-desc">
+            One of the earlier builds from the front end learning journey, capturing baseline HTML/CSS skills.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag-pill">Foundations</span>
+            <span class="project-tag-pill">HTML · CSS</span>
+          </div>
+        </a>
+
+        <!-- 11 -->
+        <a class="project-card" href="https://youtu.be/zTgKZpp8ELA?si=nwsQyctNPUqIIY0s" target="_blank" rel="noreferrer">
+          <div class="project-label-row">
+            <span>Oldest in this set</span>
+            <span>Watch on YouTube</span>
+          </div>
+          <h3 class="project-title">Project 11 · Starting Point</h3>
+          <p class="project-desc">
+            An early experiment that marks the beginning of the documented journey into front end development.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag-pill">First steps</span>
+            <span class="project-tag-pill">Learning</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE + EDUCATION -->
+    <section id="experience" class="stack-md">
+      <div class="two-col">
+        <!-- Experience -->
+        <div>
+          <h2 class="section-title">Experience</h2>
+          <p class="section-subtitle">
+            Prior work in enterprise integration, telecom, and network services — now applied to front end engineering and modern web projects.
+          </p>
+        
+          <div class="item-block">
+            <div class="item-title">Senior Software Engineer · Accenture (KPN)</div>
+            <p class="item-sub">
+              Designed and built services in SOA using Cordys, integrating large-scale telecom systems with queues, web services, and event-driven flows.
+            </p>
+            <div class="item-meta">Bangalore · 2010 – 2012</div>
+          </div>
+          <div class="item-block">
+            <div class="item-title">TIBCO Consultant · Infosys (Bank of America)</div>
+            <p class="item-sub">
+              Implemented TIBCO BusinessWorks solutions for high-volume trade processing, focusing on reliability, monitoring, and performance tuning.
+            </p>
+            <div class="item-meta">Hyderabad · 2009 – 2010</div>
+          </div>
+          <div class="item-block">
+            <div class="item-title">EAI Consultant · TIBCO PSG</div>
+            <p class="item-sub">
+              Created synchronous and asynchronous interfaces for telecom inventory systems, using SOAP, JMS, and XML-based integrations.
+            </p>
+            <div class="item-meta">Pune · 2009</div>
+          </div>
+          <div class="item-block">
+            <div class="item-title">EAI Consultant · Sriak Technologies (via TIBCO)</div>
+            <p class="item-sub">
+              Contributed to common services design, building integration flows and schemas to connect multiple business systems.
+            </p>
+            <div class="item-meta">Michigan · 2008</div>
+          </div>
+          <div class="item-block">
+            <div class="item-title">Technical Support Engineer · Infoblox</div>
+            <p class="item-sub">
+              Supported enterprise customers on DNS, DHCP, and IPAM appliances, collaborating closely with engineering and professional services.
+            </p>
+            <div class="item-meta">Santa Clara · 2007 – 2008</div>
+          </div>
+        </div>
+
+        <!-- Education & Certificates -->
+        <div id="education">
+          <h2 class="section-title">Education & Certificates</h2>
+          <p class="section-subtitle">
+            A formal computer science foundation, refreshed with modern front end training and generative AI specialization.
+          </p>
+
+          <div class="item-block">
+            <div class="item-title">Generative AI Mastermind</div>
+            <p class="item-sub">
+              Outskill × moneycontrol — applied generative AI concepts for real-world product and content use cases.
+            </p>
+            <div class="item-meta">Certificate</div>
+          </div>
+          <div class="item-block">
+            <div class="item-title">Front End Software Developer</div>
+            <p class="item-sub">
+              360‑hour program, Gateway Community College · Promineo Tech — modern front end fundamentals and practical projects.
+            </p>
+            <div class="item-meta">Certificate · 2024</div>
+          </div>
+          <div class="item-block">
+            <div class="item-title">M.S. Computer Science</div>
+            <p class="item-sub">University of Nevada, Las Vegas (UNLV), USA</p>
+            <div class="item-meta">Graduate</div>
+          </div>
+          <div class="item-block">
+            <div class="item-title">B.Tech Computer Science</div>
+            <p class="item-sub">Jawaharlal Nehru Technological University (JNTU), India</p>
+            <div class="item-meta">Undergraduate</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="stack-md">
+      <div class="contact-strip">
+        <h2>Let’s build something useful.</h2>
+        <p>
+          Whether you are a technology leader exploring front end talent,
+          or a hiring manager filling a role in AI, I am open to conversation.
+        </p>
+        <div class="contact-actions">
+          <a href="mailto:shashi.frendz@gmail.com" class="contact-pill">shashi.frendz@gmail.com</a>
+          <a href="tel:+17757726536" class="contact-pill">+1 775 772 6536</a>
+          <a href="https://www.youtube.com/@shashi2718" target="_blank" rel="noreferrer" class="contact-pill">YouTube @shashi2718</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      © 2025 · Shashirekha Yellenki · 
+    </footer>
+  </main>
+</body>
+</html>
